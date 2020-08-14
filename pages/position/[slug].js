@@ -34,6 +34,31 @@ dayjs.updateLocale("en", {
   },
 });
 
+export async function getServerSideProps(context) {
+  const { query, req } = context;
+
+  console.log(req.headers.referer);
+
+  const isBack = req.headers.referer ? req.headers.referer : null;
+
+  const searchClient = algoliasearch(
+    process.env.REACT_APP_Algolia_Project,
+    process.env.REACT_APP_Search_Key
+  );
+  const index = searchClient.initIndex(process.env.REACT_APP_Algolia_Index);
+  const data = await index.search("", {
+    filters: `expatriant_slug:${query.slug}`,
+  });
+  const job = data.hits[0];
+
+  return {
+    props: {
+      job,
+      isBack,
+    },
+  };
+}
+
 const JobPost = ({ job, isBack }) => {
   const BackToJobs = () => {
     return isBack ? (
