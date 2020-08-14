@@ -4,7 +4,6 @@ import "../public/styles/global_styles.css";
 import PageContainer from "../components/PageContainer";
 
 function MyApp({ Component, pageProps }) {
-  console.log();
   return (
     <PageContainer>
       <Component {...pageProps} />
