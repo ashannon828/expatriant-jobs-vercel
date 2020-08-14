@@ -13,6 +13,7 @@ import SearchComponent from "../components/SearchComponent";
 import heroImg from "../public/img/interview.svg";
 
 export async function getServerSideProps(context) {
+  console.log(process.env);
   const searchClient = algoliasearch(
     process.env.REACT_APP_Algolia_Project,
     process.env.REACT_APP_Search_Key
