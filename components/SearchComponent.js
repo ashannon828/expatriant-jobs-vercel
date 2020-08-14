@@ -16,7 +16,6 @@ const SearchComponent = ({
   nbHits,
   processingTimeMS,
 }) => {
-  console.log("render serach component");
   return (
     <Box width="xlarge" align="center" pad={{ left: "20px", right: "20px" }}>
       <Form onSubmit={(e) => submitSearch(e)}>

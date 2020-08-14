@@ -37,8 +37,6 @@ dayjs.updateLocale("en", {
 export async function getServerSideProps(context) {
   const { query, req } = context;
 
-  console.log(req.headers.referer);
-
   const isBack = req.headers.referer ? req.headers.referer : null;
 
   const searchClient = algoliasearch(

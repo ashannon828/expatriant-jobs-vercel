@@ -33,7 +33,6 @@ dayjs.updateLocale("en", {
 });
 
 function JobCard({ job, size, logEvent }) {
-  console.log("Render job cards");
   const imgSize = size !== "small" ? "55px" : "35px";
   const imgContainer = size !== "small" ? "xsmall" : "xxsmall";
   return (
