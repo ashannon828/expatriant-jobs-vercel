@@ -1,0 +1,12 @@
+.JobCard:hover {
+	background: #6fffb0;
+	cursor: pointer;
+}
+
+.toJobPost {
+	color: #333333;
+	text-decoration: none;
+}
+.toJobPost:hover {
+	text-decoration: underline;
+}
