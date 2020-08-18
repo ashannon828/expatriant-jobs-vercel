@@ -94,7 +94,7 @@ function JobCard({ job, size, logEvent }) {
               className={style.toJobPost}
               onClick={(e) => {
                 e.stopPropagation();
-                logEvent("read-job-url", `${job.company}:${job.position}`);
+                logEvent("read-job", "url", `${job.company}:${job.position}`);
               }}
             >
               <Text size={size !== "small" ? "small" : "xsmall"}>

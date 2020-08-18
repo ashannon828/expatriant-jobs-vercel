@@ -149,6 +149,11 @@ const SubmitJobForm = ({ size, logEvent }) => {
           setIsProcessing(false);
           // submitted modal
           setSuccess(true);
+          // logEvent(
+          //   "post-job",
+          //   "success",
+          //   `${company}-${position}-${client_email}`
+          // );
         }
       } catch (error) {
         alert("Unable to process your request.");
@@ -209,7 +214,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
           setCardError("Unable to process your payment. Try again later.");
           setIsProcessing(false);
         }
-        logEvent("post-job", `${company}-${position}-${client_email}`);
       }
     } catch (error) {
       alert("Unable to process request. You won't be charged.");

@@ -57,7 +57,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-const JobPost = ({ job, isBack }) => {
+const JobPost = ({ job, isBack, logEvent }) => {
   const BackToJobs = () => {
     return isBack ? (
       <Anchor onClick={() => Router.back()}>Back to Jobs</Anchor>
@@ -121,7 +121,12 @@ const JobPost = ({ job, isBack }) => {
                 </Box>
               </Box>
             </Box>
-            <JobPostBody margin={false} fontSize={"medium"} job={job} />
+            <JobPostBody
+              margin={false}
+              fontSize={"medium"}
+              job={job}
+              logEvent={logEvent}
+            />
           </Box>
         </Box>
       </Box>

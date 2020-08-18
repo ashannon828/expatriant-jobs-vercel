@@ -88,7 +88,7 @@ const JobBoard = ({
   };
 
   const metaDescription =
-    "Browse handpicked expat jobs in Russia. Expatriant Jobs helps expats find their dream job abroad.";
+    "Browse sales, marketing, translating, editing and English teaching jobs in Russia.";
   const pageTitle = "Expat Jobs in Russia - Expatriant";
 
   return (
@@ -115,11 +115,11 @@ const JobBoard = ({
           alignSelf="center"
         >
           <Heading margin="none" alignSelf="center" textAlign="center">
-            Browse Expat Jobs in Russia
+            Expat Jobs in Russia
           </Heading>
           <Heading alignSelf="center" textAlign="center" level={4}>
-            Find sales, marketing, translating, editing and teaching jobs in
-            Russia.
+            Browse sales, marketing, translating, editing and English teaching
+            jobs in Russia.
           </Heading>
         </Box>
 
@@ -143,7 +143,8 @@ const JobBoard = ({
                 let job = hits[idx];
                 if (job) {
                   logEvent(
-                    "read-job-accordion",
+                    "read-job",
+                    "accordion",
                     `${job.company}:${job.position}`
                   );
                 }

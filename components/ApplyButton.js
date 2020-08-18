@@ -20,7 +20,7 @@ const ApplyButton = ({
         label="Apply"
         onClick={(e) => {
           e.stopPropagation();
-          logEvent("clicked-apply", googleTag);
+          logEvent("application", "clicked-apply", googleTag);
         }}
       />
     </Box>

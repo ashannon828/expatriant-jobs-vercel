@@ -21,7 +21,7 @@ function JobPostBody({ job, fontSize, margin, logEvent }) {
         {job.salary && (
           <Box pad={{ top: "20px" }}>
             <span>
-              <strong>Salary:</strong> {`$${job.salary}`}
+              <strong>Annual Salary:</strong> {`$${job.salary}`}
             </span>
           </Box>
         )}
