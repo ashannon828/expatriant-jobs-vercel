@@ -150,20 +150,12 @@ const SubmitJobForm = ({ size, logEvent }) => {
           handleObject({ ...initialState });
           // submitted modal
           setSuccess(true);
-          logEvent(
-            "post-job",
-            "success",
-            `${company}-${position}-${client_email}`
-          );
+          logEvent("post-job", "success", `${company}-${position}`);
         }
       } catch (error) {
         setError(true);
         setIsProcessing(false);
-        logEvent(
-          "post-job",
-          "failed",
-          `${company}-${position}-${client_email}`
-        );
+        logEvent("post-job", "failed", `${company}-${position}`);
       }
 
       return;
