@@ -142,7 +142,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
     if (freePost) {
       setIsProcessing(true);
       try {
-        const emailPost = await axios.post(`${API_PATH}/emailJobPpost`, {
+        const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
           data: JSON.stringify({ ...state, payment_id: "freePost2020" }),
         });
         if (emailPost.status === 200) {
@@ -238,7 +238,11 @@ const SubmitJobForm = ({ size, logEvent }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Box margin={{ top: "medium" }} pad={{ left: "small", right: "small" }}>
+      <Box
+        width="xlarge"
+        margin={{ top: "medium" }}
+        pad={{ left: "small", right: "small" }}
+      >
         <Box alignSelf="start" width="fit-content">
           <Link href="/">
             <Anchor>Back to Jobs</Anchor>
@@ -253,8 +257,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
           round="xsmall"
         >
           <Box
-            width="100%"
             alignSelf="center"
+            width="large"
             pad={{ bottom: "large" }}
             border={{
               color: "border",
@@ -268,8 +272,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
             </Heading>
           </Box>
           <Box
-            pad={{ top: "medium", bottom: "medium" }}
             width="large"
+            pad={{ top: "medium", bottom: "medium" }}
             alignSelf="center"
           >
             <Form onSubmit={handleSubmit}>
