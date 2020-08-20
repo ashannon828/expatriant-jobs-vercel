@@ -99,7 +99,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setSuccess] = useState(false);
-  const [cardError, setCardError] = useState("");
+  const [showError, setError] = useState(false);
+  const [cardError, setCardError] = useState(false);
 
   const {
     position,
@@ -141,23 +142,28 @@ const SubmitJobForm = ({ size, logEvent }) => {
     if (freePost) {
       setIsProcessing(true);
       try {
-        const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
+        const emailPost = await axios.post(`${API_PATH}/emailJobPpost`, {
           data: JSON.stringify({ ...state, payment_id: "freePost2020" }),
         });
         if (emailPost.status === 200) {
-          handleObject({ ...initialState });
           setIsProcessing(false);
+          handleObject({ ...initialState });
           // submitted modal
           setSuccess(true);
-          // logEvent(
-          //   "post-job",
-          //   "success",
-          //   `${company}-${position}-${client_email}`
-          // );
+          logEvent(
+            "post-job",
+            "success",
+            `${company}-${position}-${client_email}`
+          );
         }
       } catch (error) {
-        alert("Unable to process your request.");
+        setError(true);
         setIsProcessing(false);
+        logEvent(
+          "post-job",
+          "failed",
+          `${company}-${position}-${client_email}`
+        );
       }
 
       return;
@@ -232,10 +238,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
         <meta name="description" content={metaDescription} />
       </Head>
 
-      <Box
-        width="xlarge"
-        margin={{ top: "medium", left: "small", right: "small" }}
-      >
+      <Box margin={{ top: "medium" }} pad={{ left: "small", right: "small" }}>
         <Box alignSelf="start" width="fit-content">
           <Link href="/">
             <Anchor>Back to Jobs</Anchor>
@@ -250,7 +253,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
           round="xsmall"
         >
           <Box
-            width="xlarge"
+            width="100%"
             alignSelf="center"
             pad={{ bottom: "large" }}
             border={{
@@ -439,7 +442,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
               </Box>
             </Form>
           </Box>
-          {showSuccess && (
+          {(showSuccess && (
             <PopupModal
               status="Success"
               size={size}
@@ -460,17 +463,38 @@ const SubmitJobForm = ({ size, logEvent }) => {
               link="/"
               linkText="Back to Jobs"
             />
-          )}
+          )) ||
+            (showError && (
+              <PopupModal
+                size={size}
+                open={showError}
+                setOpen={setError}
+                title="Error 500"
+                body={
+                  <>
+                    Our server is temporarily unavailable. If you have
+                    questions, contact us at{" "}
+                    <Anchor href="mailto:contact@expatriant.com?subject=Job Posting">
+                      contact@expatriant.com
+                    </Anchor>
+                    .
+                  </>
+                }
+                cta="Try Again"
+                link="/"
+                linkText="Back to Jobs"
+              />
+            ))}
         </Box>
       </Box>
     </>
   );
 };
 
-const JobForm = () => {
+const JobForm = ({ size, logEvent }) => {
   return (
     <Elements stripe={stripePromise}>
-      <SubmitJobForm />
+      <SubmitJobForm size={size} logEvent={logEvent} />
     </Elements>
   );
 };

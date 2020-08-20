@@ -77,10 +77,7 @@ const JobPost = ({ job, isBack, logEvent }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={metaDescription} />
       </Head>
-      <Box
-        width="xlarge"
-        margin={{ top: "medium", left: "small", right: "small" }}
-      >
+      <Box margin={{ top: "medium" }} pad={{ left: "small", right: "small" }}>
         <Box alignSelf="start" width="fit-content">
           <BackToJobs />
         </Box>
