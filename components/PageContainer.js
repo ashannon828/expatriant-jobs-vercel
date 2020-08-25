@@ -865,7 +865,7 @@ const PageContainer = ({ children }) => {
     <Grommet full theme={expatriant}>
       <ResponsiveContext.Consumer>
         {(size) => (
-          <Box direction="column">
+          <>
             <Head>
               <meta
                 http-equiv="Content-Type"
@@ -883,26 +883,28 @@ const PageContainer = ({ children }) => {
                 content="width=device-width, initial-scale=1"
               />
             </Head>
-            {showChild && (
-              <Main>
-                <Navbar size={size} />
-                <Box
-                  width="xlarge"
-                  alignSelf="center"
-                  align="center"
-                  pad={{ bottom: "xlarge" }}
-                >
-                  {React.Children.map(children, (child) => {
-                    return React.cloneElement(child, {
-                      ...child.props,
-                      size,
-                      logEvent,
-                    });
-                  })}
-                </Box>
-              </Main>
-            )}
-          </Box>
+            <Box direction="column">
+              {showChild && (
+                <>
+                  <Navbar size={size} />
+                  <Main
+                    width="xlarge"
+                    alignSelf="center"
+                    align="center"
+                    pad={{ bottom: "xlarge" }}
+                  >
+                    {React.Children.map(children, (child) => {
+                      return React.cloneElement(child, {
+                        ...child.props,
+                        size,
+                        logEvent,
+                      });
+                    })}
+                  </Main>
+                </>
+              )}
+            </Box>
+          </>
         )}
       </ResponsiveContext.Consumer>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfevbppzFZR9dJ-gQE2afku9RT3gsTbis&libraries=places"></script>
