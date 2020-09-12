@@ -319,7 +319,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
                   />
                 </Box>
                 <Box pad={{ bottom: "small" }}>
-                  <FormField label="SALARY">
+                  <FormField label="MONTHLY SALARY">
                     <JobSalaryField
                       currency={currency}
                       amount={amount}
