@@ -285,7 +285,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
                   </FormField>
                   <Text size="xsmall">
                     Only <strong>real jobs</strong> are allowed to be posted.
-                    Each post should be a single job such as "English Teacher".
+                    Each post should be a single vacancy such as "English
+                    Teacher".
                   </Text>
                 </Box>
                 <Box pad={{ bottom: "small" }}>
@@ -326,7 +327,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
                     />
                   </FormField>
                   <Text size="xsmall">
-                    Please write salary the currency you pay per month.
+                    Choose the currency and enter the salary for this position.
                   </Text>
                 </Box>
                 <Box pad={{ bottom: "small" }}>
@@ -352,7 +353,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
                     />
                   </FormField>
                   <Text size="xsmall">
-                    URL or Email where candidates should apply to this job.
+                    URL or Email where candidates can apply to this vacancy.
                   </Text>
                 </Box>
                 <Box pad={{ bottom: "small" }}>

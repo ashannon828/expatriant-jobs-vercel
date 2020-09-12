@@ -67,9 +67,7 @@ const JobLocationField = ({ handleObject, location }) => {
             />
           </FormField>
           <Box>
-            <Text size="xsmall">
-              Location if a phyisical location or remote.
-            </Text>
+            <Text size="xsmall">Enter the location for this job.</Text>
           </Box>
         </>
       )}

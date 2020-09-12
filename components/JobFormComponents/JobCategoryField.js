@@ -34,7 +34,7 @@ const JobCategoryField = ({ handleChange, category }) => {
           />
         </Box>
       </Box>
-      <Text size="xsmall">This tag will help to categorize your job post.</Text>
+      <Text size="xsmall">This tag will help categorize your job post.</Text>
     </>
   );
 };

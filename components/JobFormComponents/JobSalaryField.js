@@ -19,7 +19,8 @@ export default function JobSalaryField({ currency, amount, handleChange }) {
           name="amount"
           value={amount}
           type="number"
-          placeholder="Your position's salary"
+          min={0}
+          placeholder="0"
           onChange={handleChange}
         />
       </Box>
