@@ -20,9 +20,16 @@ function JobPostBody({ job, fontSize, margin, logEvent }) {
       <Text size={fontSize}>
         {job.salary && (
           <Box pad={{ top: "20px" }}>
-            <span>
-              <strong>Annual Salary:</strong> {`$${job.salary}`}
-            </span>
+            {job.salary.currency ? (
+              <span>
+                <strong>Monthly Salary:</strong>{" "}
+                {`${job.salary.amount} ${job.salary.currency}`}
+              </span>
+            ) : (
+              <span>
+                <strong>Annual Salary:</strong> {`${job.salary} USD`}
+              </span>
+            )}
           </Box>
         )}
         <ReactMarkdown

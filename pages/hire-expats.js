@@ -18,6 +18,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 import PopupModal from "../components/Modal";
 
+import JobSalaryField from "../components/JobFormComponents/JobSalaryField";
 import JobLocationField from "../components/JobFormComponents/JobLocationField";
 import InvoiceAddressField from "../components/JobFormComponents/InvoiceAddressField";
 import JobCategoryField from "../components/JobFormComponents/JobCategoryField";
@@ -38,7 +39,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = (async () =>
   await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK))();
 
-const API_PATH = process.env.NEXT_PUBLIC_API;
+const API_PATH = "http://localhost:5000/agent1-prjniw/europe-west1/api"; //process.env.NEXT_PUBLIC_API;
 
 const reducer = (state, action) => {
   let { payload } = action;
@@ -85,7 +86,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
     company_logo: "",
     location: "",
     latLng: {},
-    salary: "",
+    currency: "",
+    amount: "",
     category: "",
     html_desc:
       "<h4>Description</h4><br><br><h4>Responsibilities</h4><br><br><h4>Requirements</h4>",
@@ -107,7 +109,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
     company,
     company_logo,
     location,
-    salary,
+    currency,
+    amount,
     category,
     html_desc,
     application_url,
@@ -316,15 +319,14 @@ const SubmitJobForm = ({ size, logEvent }) => {
                 </Box>
                 <Box pad={{ bottom: "small" }}>
                   <FormField label="SALARY">
-                    <TextInput
-                      name="salary"
-                      value={salary}
-                      placeholder="Your position's salary info"
-                      onChange={handleChange}
+                    <JobSalaryField
+                      currency={currency}
+                      amount={amount}
+                      handleChange={handleChange}
                     />
                   </FormField>
                   <Text size="xsmall">
-                    Please write salary in US dollars per year.
+                    Please write salary the currency you pay per month.
                   </Text>
                 </Box>
                 <Box pad={{ bottom: "small" }}>
