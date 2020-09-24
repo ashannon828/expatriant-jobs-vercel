@@ -19,7 +19,6 @@ const InvoiceAddressField = ({ handleObject, client_address }) => {
           <FormField
             label="INVOICE ADDRESS"
             onBlur={async () => {
-              console.log(suggestions);
               suggestions[0] &&
                 handleObject({
                   client_address: suggestions[0].description,

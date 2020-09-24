@@ -13,6 +13,7 @@ import {
 } from "grommet";
 
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import Head from "next/head";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -39,8 +40,8 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = (async () =>
   await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK))();
 
-const API_PATH = process.env.NEXT_PUBLIC_API;
-
+// const API_PATH = process.env.NEXT_PUBLIC_API;
+const API_PATH = "http://localhost:5000/agent1-prjniw/europe-west1/api";
 const reducer = (state, action) => {
   let { payload } = action;
   switch (action.type) {
@@ -80,6 +81,7 @@ const renderPayment = () => (
 
 const SubmitJobForm = ({ size, logEvent }) => {
   const initialState = {
+    expatriant_id: uuidv4(),
     payment_id: "",
     position: "",
     company: "",
@@ -99,12 +101,15 @@ const SubmitJobForm = ({ size, logEvent }) => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setProcessingTo] = useState(false);
+  //success modal
   const [showSuccess, setSuccess] = useState(false);
+  //error modal
   const [showError, setError] = useState(false);
   const [cardError, setCardError] = useState(false);
 
   const {
+    expatriant_id,
     position,
     company,
     company_logo,
@@ -118,6 +123,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
     client_email,
     client_address,
   } = state;
+
+  console.log(expatriant_id);
 
   const freePost = coupon_code.toLowerCase() === "freepost2020";
 
@@ -135,91 +142,74 @@ const SubmitJobForm = ({ size, logEvent }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Stripe.js has not loaded yet. Make sure to disable
+    // form submission until Stripe.js has loaded.
     if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
       return;
     }
-    //
+
+    // free post logic
     if (freePost) {
-      setIsProcessing(true);
+      setProcessingTo(true);
       try {
         const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
           data: JSON.stringify({ ...state, payment_id: "freePost2020" }),
         });
         if (emailPost.status === 200) {
-          setIsProcessing(false);
+          setProcessingTo(false);
           handleObject({ ...initialState });
           // submitted modal
           setSuccess(true);
           logEvent("post-job", "success", `${company}-${position}`);
         }
-      } catch (error) {
+      } catch (err) {
         setError(true);
-        setIsProcessing(false);
+        setProcessingTo(false);
         logEvent("post-job", "failed", `${company}-${position}`);
       }
-
       return;
     }
-    setIsProcessing(true);
+
+    setProcessingTo(true);
+
+    // get jobEmail data and send with payment
+    const { data: clientSecret } = await axios.post(
+      `${API_PATH}/payment-intent`
+    );
+
+    console.log(clientSecret);
+
     const cardElement = elements.getElement(CardElement);
 
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const paymentMethodReq = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
+      metadata: { expatriant_id, client_address },
+      billing_details: {
+        email: client_email,
+      },
     });
+    console.log({ ...state });
+    console.log(paymentMethodReq);
+    setProcessingTo(false);
 
-    if (error) {
-      setCardError(error.message);
-      setIsProcessing(false);
-      return;
-    }
+    // if (createErr) {
+    //   setCardError(createErr.message);
+    //   setProcessingTo(false);
+    //   return;
+    // }
 
-    try {
-      const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
-        data: JSON.stringify({ ...state, payment_id: paymentMethod.id }),
-      });
+    // const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
+    //   data: JSON.stringify({ ...state, payment_id: paymentMethod.id }),
+    // });
 
-      // get jobEmail data and send with payment
-      if (emailPost.status === 200) {
-        try {
-          const { status, data: paymentIntent } = await axios.post(
-            `${API_PATH}/payments`,
-            {
-              expatriant_id: emailPost.data.expatriant_id,
-              client_email,
-              client_address,
-            }
-          );
-
-          if (status === 200) {
-            const { error } = await stripe.confirmCardPayment(
-              paymentIntent.client_secret,
-              {
-                payment_method: paymentMethod.id,
-              }
-            );
-
-            if (error) {
-              setCardError(error.message);
-              setIsProcessing(false);
-              return;
-            }
-            setIsProcessing(false);
-            // submitted modal
-          }
-        } catch (err) {
-          setCardError("Unable to process your payment. Try again later.");
-          setIsProcessing(false);
-        }
-      }
-    } catch (error) {
-      alert("Unable to process request. You won't be charged.");
-      setIsProcessing(false);
-    }
+    // const { confirmErr } = await stripe.confirmCardPayment(
+    //   paymentIntent.client_secret,
+    //   {
+    //     payment_method: paymentMethod.id,
+    //   }
+    // );
   };
 
   const metaDescription =
@@ -376,7 +366,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
                   <FormField label="COUPON CODE">
                     <TextInput
                       name="coupon_code"
-                      required={true}
                       value={coupon_code}
                       placeholder="Enter a coupon code"
                       onChange={handleChange}
