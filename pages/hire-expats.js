@@ -124,8 +124,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
     client_address,
   } = state;
 
-  console.log(expatriant_id);
-
   const freePost = coupon_code.toLowerCase() === "freepost2020";
 
   const stripe = useStripe();
@@ -185,31 +183,25 @@ const SubmitJobForm = ({ size, logEvent }) => {
     const paymentMethodReq = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
-      metadata: { expatriant_id, client_address },
+      metadata: {
+        job_id: `${expatriant_id}`,
+        client_address: `${client_address}`,
+      },
       billing_details: {
         email: client_email,
       },
     });
-    console.log({ ...state });
     console.log(paymentMethodReq);
-    setProcessingTo(false);
 
-    // if (createErr) {
-    //   setCardError(createErr.message);
-    //   setProcessingTo(false);
-    //   return;
-    // }
+    const confirmedCardPayment = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: paymentMethodReq.paymentMethod.id,
+    });
+    console.log(confirmedCardPayment);
+    setProcessingTo(false);
 
     // const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
     //   data: JSON.stringify({ ...state, payment_id: paymentMethod.id }),
     // });
-
-    // const { confirmErr } = await stripe.confirmCardPayment(
-    //   paymentIntent.client_secret,
-    //   {
-    //     payment_method: paymentMethod.id,
-    //   }
-    // );
   };
 
   const metaDescription =
