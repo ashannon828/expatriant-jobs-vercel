@@ -107,6 +107,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
   //error modal
   const [showError, setError] = useState(false);
   const [cardError, setCardError] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
 
   const {
     expatriant_id,
@@ -167,41 +168,58 @@ const SubmitJobForm = ({ size, logEvent }) => {
       }
       return;
     }
-
     setProcessingTo(true);
-
-    // get jobEmail data and send with payment
-    const { data: clientSecret } = await axios.post(
-      `${API_PATH}/payment-intent`
-    );
-
-    console.log(clientSecret);
 
     const cardElement = elements.getElement(CardElement);
 
-    // Use your card Element with other Stripe.js APIs
-    const paymentMethodReq = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-      metadata: {
-        job_id: `${expatriant_id}`,
-        client_address: `${client_address}`,
-      },
-      billing_details: {
-        email: client_email,
-      },
-    });
-    console.log(paymentMethodReq);
+    try {
+      // Create payment intent and generate client secrete
+      const { data: clientSecret } = await axios.post(
+        `${API_PATH}/payment-intent`,
+        {
+          expatriant_id,
+          client_address,
+        }
+      );
 
-    const confirmedCardPayment = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: paymentMethodReq.paymentMethod.id,
-    });
-    console.log(confirmedCardPayment);
-    setProcessingTo(false);
+      const paymentMethodReq = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+        billing_details: {
+          email: client_email,
+        },
+      });
 
-    // const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
-    //   data: JSON.stringify({ ...state, payment_id: paymentMethod.id }),
-    // });
+      const { error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethodReq.paymentMethod.id,
+      });
+
+      if (error) {
+        setProcessingTo(false);
+        setPaymentError(error.message);
+        setError(true);
+        return;
+      }
+
+      setProcessingTo(false);
+      handleObject({ ...initialState });
+      // submitted modal
+      setSuccess(true);
+      logEvent("post-job", "success", `${company}-${position}`);
+    } catch (error) {
+      console.error(error);
+      setProcessingTo(false);
+      setPaymentError(
+        <>
+          You weren't charged. If you have questions, contact us at{" "}
+          <Anchor href="mailto:contact@expatriant.com?subject=Job Post Error">
+            contact@expatriant.com
+          </Anchor>
+          .
+        </>
+      );
+      setError(true);
+    }
   };
 
   const metaDescription =
@@ -431,9 +449,9 @@ const SubmitJobForm = ({ size, logEvent }) => {
               title="Your Job Was Submitted"
               body={
                 <>
-                  You can post another one, or go back to our open jobs. If you
-                  have questions, contact us at{" "}
-                  <Anchor href="mailto:contact@expatriant.com?subject=Job Posting">
+                  You can post another one or go back to our open jobs. If you
+                  have questions, you can contact us at{" "}
+                  <Anchor href="mailto:contact@expatriant.com?subject=Job Post Success">
                     contact@expatriant.com
                   </Anchor>
                   .
@@ -449,17 +467,8 @@ const SubmitJobForm = ({ size, logEvent }) => {
                 size={size}
                 open={showError}
                 setOpen={setError}
-                title="Error 500"
-                body={
-                  <>
-                    Our server is temporarily unavailable. If you have
-                    questions, contact us at{" "}
-                    <Anchor href="mailto:contact@expatriant.com?subject=Job Posting">
-                      contact@expatriant.com
-                    </Anchor>
-                    .
-                  </>
-                }
+                title="Your Transaction Failed"
+                body={paymentError}
                 cta="Try Again"
                 link="/"
                 linkText="Back to Jobs"
