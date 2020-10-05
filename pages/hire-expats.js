@@ -147,12 +147,18 @@ const SubmitJobForm = ({ size, logEvent }) => {
       return;
     }
 
+    const salary = currency ? { currency: currency, amount: amount } : {};
+
     // free post logic
     if (freePost) {
       setProcessingTo(true);
       try {
         const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
-          data: JSON.stringify({ ...state, payment_id: "freePost2020" }),
+          data: JSON.stringify({
+            ...state,
+            salary,
+            payment_id: "freePost2020",
+          }),
         });
         if (emailPost.status === 200) {
           setProcessingTo(false);
@@ -173,7 +179,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
     const cardElement = elements.getElement(CardElement);
 
     try {
-      // Create payment intent and generate client secrete
+      // Create payment intent and generate client secret
       const { data: clientSecret } = await axios.post(
         `${API_PATH}/payment-intent`,
         {
