@@ -867,14 +867,7 @@ const PageContainer = ({ children }) => {
         {(size) => (
           <>
             <Head>
-              <meta
-                http-equiv="Content-Type"
-                content="text/html; charset=utf-8"
-              />
-              <meta
-                http-equiv="Content-Type"
-                content="text/html; charset=ISO-8859-1"
-              />
+              
               <link rel="icon" type="image/png" sizes="32x32" href={favicon} />
               <link rel="icon" type="image/png" sizes="16x16" href={favicon} />
 
