@@ -867,7 +867,6 @@ const PageContainer = ({ children }) => {
         {(size) => (
           <>
             <Head>
-              
               <link rel="icon" type="image/png" sizes="32x32" href={favicon} />
               <link rel="icon" type="image/png" sizes="16x16" href={favicon} />
 
