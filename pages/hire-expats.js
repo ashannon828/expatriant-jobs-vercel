@@ -81,6 +81,7 @@ const renderPayment = () => (
 
 const SubmitJobForm = ({ size, logEvent }) => {
   const initialState = {
+    active: false,
     expatriant_id: uuidv4(),
     payment_id: "",
     position: "",
