@@ -147,9 +147,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
     if (!stripe || !elements) {
       return;
     }
-
-    const salary = currency ? { currency: currency, amount: amount } : {};
-
     // free post logic
     if (freePost) {
       setProcessingTo(true);
@@ -157,7 +154,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
         const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
           data: JSON.stringify({
             ...state,
-            salary,
             payment_id: "freePost2020",
           }),
         });
@@ -207,13 +203,15 @@ const SubmitJobForm = ({ size, logEvent }) => {
         setPaymentError(error.message);
         setError(true);
         return;
+      } else {
+
+        setProcessingTo(false);
+        handleObject({ ...initialState });
+        setSuccess(true);
+        logEvent("post-job", "success", `${company}-${position}`);
       }
 
-      setProcessingTo(false);
-      handleObject({ ...initialState });
-      // submitted modal
-      setSuccess(true);
-      logEvent("post-job", "success", `${company}-${position}`);
+      
     } catch (error) {
       console.error(error);
       setProcessingTo(false);
