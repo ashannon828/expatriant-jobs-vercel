@@ -182,7 +182,6 @@ const SubmitJobForm = ({ size, logEvent }) => {
         {
           expatriant_id,
           client_address,
-          job: JSON.stringify({ ...state }),
         }
       );
 
