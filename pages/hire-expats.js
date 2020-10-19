@@ -147,16 +147,21 @@ const SubmitJobForm = ({ size, logEvent }) => {
     if (!stripe || !elements) {
       return;
     }
+    
     // free post logic
     if (freePost) {
       setProcessingTo(true);
       try {
         const emailPost = await axios.post(`${API_PATH}/emailJobPost`, {
-          data: JSON.stringify({
             ...state,
             payment_id: "freePost2020",
-          }),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
+
         if (emailPost.status === 200) {
           setProcessingTo(false);
           handleObject({ ...initialState });
@@ -172,45 +177,58 @@ const SubmitJobForm = ({ size, logEvent }) => {
       return;
     }
     setProcessingTo(true);
-
+    // const emailPost = await axios.post(`${API_PATH}/addJob`, {
+    //   data: JSON.stringify({...state,})})
     const cardElement = elements.getElement(CardElement);
+    const addPaidJob = await axios.post(`${API_PATH}/addJob`, 
+        {
+          ...state,
+          payment_id: "",
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
+    // add paid job logic
     try {
+      if (addPaidJob.status === 200){
       // Create payment intent and generate client secret
-      const { data: clientSecret } = await axios.post(
+      const {data: {client_secret, id}} = await axios.post(
         `${API_PATH}/payment-intent`,
         {
           expatriant_id,
           client_address,
+          firebase_id: addPaidJob.data.firebase_id
         }
       );
-
-      const paymentMethodReq = await stripe.createPaymentMethod({
-        type: "card",
-        card: cardElement,
-        billing_details: {
-          email: client_email,
-        },
-      });
-
-      const { error } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethodReq.paymentMethod.id,
-      });
-
-      if (error) {
-        setProcessingTo(false);
-        setPaymentError(error.message);
-        setError(true);
-        return;
-      } else {
-
-        setProcessingTo(false);
-        handleObject({ ...initialState });
-        setSuccess(true);
-        logEvent("post-job", "success", `${company}-${position}`);
-      }
-
       
+        const paymentMethodReq = await stripe.createPaymentMethod({
+          type: "card",
+          card: cardElement,
+          billing_details: {
+            email: client_email,
+          }
+        });
+  
+        const { error } = await stripe.confirmCardPayment(client_secret, {
+          payment_method: paymentMethodReq.paymentMethod.id,
+        },);
+  
+        if (error) {
+          setProcessingTo(false);
+          setPaymentError(error.message);
+          setError(true);
+          return;
+        } else {
+          setProcessingTo(false);
+          handleObject({ ...initialState });
+          setSuccess(true);
+          logEvent("post-job", "success", `${company}-${position}`);
+        }
+      }
     } catch (error) {
       console.error(error);
       setProcessingTo(false);
