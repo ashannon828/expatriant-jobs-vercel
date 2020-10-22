@@ -40,8 +40,8 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = (async () =>
   await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK))();
 
-// const API_PATH = process.env.NEXT_PUBLIC_API;
-const API_PATH = "http://localhost:5000/agent1-prjniw/europe-west1/api";
+const API_PATH = process.env.NEXT_PUBLIC_API;
+// const API_PATH = "http://localhost:5000/agent1-prjniw/europe-west1/api";
 const reducer = (state, action) => {
   let { payload } = action;
   switch (action.type) {
