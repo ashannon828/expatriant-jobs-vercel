@@ -97,11 +97,11 @@ function JobCard({ job, size, logEvent }) {
                 logEvent("read-job", "url", `${job.company}:${job.position}`);
               }}
             >
+              <Text size={size !== "small" ? "medium" : "xsmall"} weight="bold">
+                {size !== "small" ? job.position : job.position.slice(0, 70)}
+              </Text>
               <Text size={size !== "small" ? "small" : "xsmall"}>
                 {job.company}
-              </Text>
-              <Text size={size !== "small" ? "small" : "xsmall"} weight="bold">
-                {size !== "small" ? job.position : job.position.slice(0, 70)}
               </Text>
             </Box>
           </Link>
