@@ -218,6 +218,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
         },);
   
         if (error) {
+          console.log('confirm error')
           setProcessingTo(false);
           setPaymentError(error.message);
           setError(true);
@@ -230,7 +231,7 @@ const SubmitJobForm = ({ size, logEvent }) => {
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error('failed to process');
       setProcessingTo(false);
       setPaymentError(
         <>
