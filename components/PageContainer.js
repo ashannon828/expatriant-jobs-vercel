@@ -9,841 +9,97 @@ import Head from "next/head";
 
 import favicon from "../public/img/favicon.ico";
 
+
 const expatriant = {
-  global: {
-    colors: {
-      icon: {
-        "0": "#",
-        "1": "6",
-        "2": "6",
-        "3": "6",
-        "4": "6",
-        "5": "6",
-        "6": "6",
-        dark: "#f8f8f8",
-        light: "#666666",
+  "name": "Expatriant",
+  "rounding": 4,
+  "spacing": 24,
+  "defaultMode": "light",
+  "global": {
+    "colors": {
+      "brand": {
+        "dark": "#03ACB5",
+        "light": "#03ACB5"
       },
-      active: "rgba(221,221,221,0.5)",
-      black: "#000000",
-      border: {
-        dark: "rgba(255,255,255,0.33)",
-        light: "rgba(0,0,0,0.33)",
+      "background": {
+        "dark": "#111111",
+        "light": "#FFFFFF"
       },
-      brand: "#03ACB5",
-      control: {
-        dark: "accent-1",
-        light: "brand",
+      "background-back": {
+        "dark": "#111111",
+        "light": "#EEEEEE"
       },
-      focus: "#03ACB5",
-      placeholder: "#AAAAAA",
-      selected: "#03ACB5",
-      text: {
-        dark: "#f8f8f8",
-        light: "#444444",
+      "background-front": {
+        "dark": "#222222",
+        "light": "#FFFFFF"
       },
-      white: "#FFFFFF",
-      "accent-1": "#6FFFB0",
-      "accent-2": "#FD6FFF",
-      "accent-3": "#81FCED",
-      "accent-4": "#FFCA58",
-      "dark-1": "#333333",
-      "dark-2": "#555555",
-      "dark-3": "#777777",
-      "dark-4": "#999999",
-      "dark-5": "#999999",
-      "dark-6": "#999999",
-      "light-1": "#F8F8F8",
-      "light-2": "#F2F2F2",
-      "light-3": "#EDEDED",
-      "light-4": "#DADADA",
-      "light-5": "#DADADA",
-      "light-6": "#DADADA",
-      "neutral-1": "#00873D",
-      "neutral-2": "#3D138D",
-      "neutral-3": "#00739D",
-      "neutral-4": "#A2423D",
+      "background-contrast": {
+        "dark": "#FFFFFF11",
+        "light": "#11111111"
+      },
+      "text": {
+        "dark": "#EEEEEE",
+        "light": "#333333"
+      },
+      "text-strong": {
+        "dark": "#FFFFFF",
+        "light": "#000000"
+      },
+      "text-weak": {
+        "dark": "#CCCCCC",
+        "light": "#444444"
+      },
+      "text-xweak": {
+        "dark": "#999999",
+        "light": "#666666"
+      },
+      "border": {
+        "dark": "#444444",
+        "light": "#CCCCCC"
+      },
+      "control": "brand",
+      "active-background": "background-contrast",
+      "active-text": "text-strong",
+      "selected-background": "brand",
+      "selected-text": "text-strong",
       "status-critical": "#FF4040",
-      "status-error": "#FF4040",
       "status-warning": "#FFAA15",
       "status-ok": "#00C781",
       "status-unknown": "#CCCCCC",
       "status-disabled": "#CCCCCC",
+      "focus": {
+        "light": "#03ACB5",
+        "dark": "#03ACB5"
+      }
     },
-    animation: {
-      duration: "1s",
-      jiggle: {
-        duration: "0.1s",
-      },
+    "font": {
+      "family": "\"Open Sans\"",
+      "face": "/* cyrillic-ext */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFUZ0bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWZ0bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFVp0bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWp0bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFW50bf8pkAp6a.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459WRhyyTh89ZNpQ.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459W1hyyTh89ZNpQ.woff2) format('woff2');\n  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459WZhyyTh89ZNpQ.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459WdhyyTh89ZNpQ.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n"
     },
-    borderSize: {
-      xsmall: "1px",
-      small: "2px",
-      medium: "4px",
-      large: "12px",
-      xlarge: "24px",
+    "active": {
+      "background": "active-background",
+      "color": "active-text"
     },
-    breakpoints: {
-      small: {
-        value: 768,
-        borderSize: {
-          xsmall: "1px",
-          small: "2px",
-          medium: "4px",
-          large: "6px",
-          xlarge: "12px",
-        },
-        edgeSize: {
-          none: "0px",
-          hair: "1px",
-          xxsmall: "2px",
-          xsmall: "3px",
-          small: "6px",
-          medium: "12px",
-          large: "24px",
-          xlarge: "48px",
-        },
-        size: {
-          xxsmall: "24px",
-          xsmall: "48px",
-          small: "96px",
-          medium: "192px",
-          large: "384px",
-          xlarge: "768px",
-          full: "100%",
-        },
-      },
-      medium: {
-        value: 1536,
-      },
-      large: {},
+    "hover": {
+      "background": "active-background",
+      "color": "active-text"
     },
-    deviceBreakpoints: {
-      phone: "small",
-      tablet: "medium",
-      computer: "large",
-    },
-    control: {
-      border: {
-        width: "1px",
-        radius: "4px",
-        color: "border",
-      },
-    },
-    debounceDelay: 300,
-    drop: {
-      background: "#ffffff",
-      border: {
-        width: "0px",
-        radius: "0px",
-      },
-      shadowSize: "small",
-      zIndex: "20",
-    },
-    edgeSize: {
-      none: "0px",
-      hair: "1px",
-      xxsmall: "3px",
-      xsmall: "6px",
-      small: "12px",
-      medium: "24px",
-      large: "48px",
-      xlarge: "96px",
-      responsiveBreakpoint: "small",
-    },
-    elevation: {
-      light: {
-        none: "none",
-        xsmall: "0px 1px 2px rgba(0, 0, 0, 0.20)",
-        small: "1px 1px 10px rgba(0, 0, 0, 0.20)",
-        medium: "0px 4px 8px rgba(0, 0, 0, 0.20)",
-        large: "0px 8px 16px rgba(0, 0, 0, 0.20)",
-        xlarge: "0px 12px 24px rgba(0, 0, 0, 0.20)",
-      },
-      dark: {
-        none: "none",
-        xsmall: "0px 2px 2px rgba(255, 255, 255, 0.40)",
-        small: "0px 4px 4px rgba(255, 255, 255, 0.40)",
-        medium: "0px 6px 8px rgba(255, 255, 255, 0.40)",
-        large: "0px 8px 16px rgba(255, 255, 255, 0.40)",
-        xlarge: "0px 12px 24px rgba(255, 255, 255, 0.40)",
-      },
-    },
-    focus: {
-      border: {
-        color: "none",
-      },
-    },
-    font: {
-      family: "Open Sans",
-      size: "18px",
-      height: "24px",
-      maxWidth: "432px",
-    },
-    hover: {
-      background: {
-        dark: {
-          color: "active",
-          opacity: "medium",
-        },
-        light: {
-          color: "#03ACB5",
-        },
-      },
-      color: {
-        dark: "white",
-        light: "black",
-      },
-    },
-    input: {
-      padding: "12px",
-      weight: 600,
-    },
-    opacity: {
-      strong: 0.8,
-      medium: 0.4,
-      weak: 0.1,
-    },
-    selected: {
-      background: "selected",
-      color: "white",
-    },
-    spacing: "24px",
-    size: {
-      xxsmall: "48px",
-      xsmall: "96px",
-      small: "192px",
-      medium: "384px",
-      large: "768px",
-      xlarge: "1152px",
-      xxlarge: "1536px",
-      full: "100%",
-    },
+    "selected": {
+      "background": "selected-background",
+      "color": "selected-text"
+    }
   },
-  icon: {
-    size: {
-      small: "12px",
-      medium: "24px",
-      large: "48px",
-      xlarge: "96px",
-    },
+  "chart": {},
+  "diagram": {
+    "line": {}
   },
-  accordion: {
-    icons: {},
-  },
-  anchor: {
-    textDecoration: "none",
-    fontWeight: 600,
-    color: {
-      dark: "accent-1",
-      light: "brand",
-    },
-    hover: {
-      textDecoration: "underline",
-    },
-  },
-  box: {
-    responsiveBreakpoint: "small",
-  },
-  button: {
-    border: {
-      width: "2px",
-      radius: "18px",
-    },
-    primary: {},
-    disabled: {
-      opacity: 0.3,
-    },
-    minWidth: "96px",
-    maxWidth: "384px",
-    padding: {
-      vertical: "4px",
-      horizontal: "22px",
-    },
-  },
-  calendar: {
-    small: {
-      fontSize: "14px",
-      lineHeight: 1.375,
-      daySize: "27.428571428571427px",
-      slideDuration: "0.2s",
-    },
-    medium: {
-      fontSize: "18px",
-      lineHeight: 1.45,
-      daySize: "54.857142857142854px",
-      slideDuration: "0.5s",
-    },
-    large: {
-      fontSize: "30px",
-      lineHeight: 1.11,
-      daySize: "109.71428571428571px",
-      slideDuration: "0.8s",
-    },
-    icons: {
-      small: {},
-    },
-  },
-  carousel: {
-    icons: {},
-  },
-  chart: {},
-  checkBox: {
-    border: {
-      color: {
-        dark: "rgba(255, 255, 255, 0.5)",
-        light: "rgba(0, 0, 0, 0.15)",
-      },
-      width: "2px",
-    },
-    check: {
-      radius: "4px",
-      thickness: "4px",
-    },
-    icon: {},
-    icons: {},
-    hover: {
-      border: {
-        color: {
-          dark: "white",
-          light: "black",
-        },
-      },
-    },
-    size: "24px",
-    toggle: {
-      color: {
-        dark: "#d9d9d9",
-        light: "#d9d9d9",
-      },
-      radius: "24px",
-      size: "48px",
-      knob: {},
-    },
-  },
-  clock: {
-    analog: {
-      hour: {
-        color: {
-          dark: "light-2",
-          light: "dark-3",
-        },
-        width: "8px",
-        size: "24px",
-        shape: "round",
-      },
-      minute: {
-        color: {
-          dark: "light-4",
-          light: "dark-3",
-        },
-        width: "4px",
-        size: "12px",
-        shape: "round",
-      },
-      second: {
-        color: {
-          dark: "accent-1",
-          light: "accent-1",
-        },
-        width: "3px",
-        size: "9px",
-        shape: "round",
-      },
-      size: {
-        small: "72px",
-        medium: "96px",
-        large: "144px",
-        xlarge: "216px",
-        huge: "288px",
-      },
-    },
-    digital: {
-      text: {
-        xsmall: {
-          size: "10px",
-          height: 1.5,
-        },
-        small: {
-          size: "14px",
-          height: 1.43,
-        },
-        medium: {
-          size: "18px",
-          height: 1.375,
-        },
-        large: {
-          size: "22px",
-          height: 1.167,
-        },
-        xlarge: {
-          size: "26px",
-          height: 1.1875,
-        },
-        xxlarge: {
-          size: "34px",
-          height: 1.125,
-        },
-      },
-    },
-  },
-  collapsible: {
-    minSpeed: 200,
-    baseline: 500,
-  },
-  dataTable: {
-    header: {},
-    groupHeader: {
-      border: {
-        side: "bottom",
-        size: "xsmall",
-      },
-      fill: "vertical",
-      pad: {
-        horizontal: "small",
-        vertical: "xsmall",
-      },
-      background: {
-        dark: "dark-2",
-        light: "light-2",
-      },
-    },
-    icons: {},
-    resize: {
-      border: {
-        side: "right",
-        color: "border",
-      },
-    },
-    primary: {
-      weight: "bold",
-    },
-  },
-  diagram: {
-    line: {
-      color: "accent-1",
-    },
-  },
-  formField: {
-    border: {
-      color: "border",
-      position: "inner",
-      side: "bottom",
-      error: {
-        color: {
-          dark: "white",
-          light: "status-critical",
-        },
-      },
-    },
-    content: {
-      pad: {
-        horizontal: "small",
-        bottom: "small",
-      },
-    },
-    error: {
-      margin: {
-        vertical: "xsmall",
-        horizontal: "small",
-      },
-      color: {
-        dark: "status-critical",
-        light: "status-critical",
-      },
-    },
-    help: {
-      margin: {
-        left: "small",
-      },
-      color: {
-        dark: "dark-3",
-        light: "dark-3",
-      },
-    },
-    label: {
-      margin: {
-        vertical: "xsmall",
-        horizontal: "small",
-      },
-    },
-    margin: {
-      bottom: "small",
-    },
-  },
-  grommet: {},
-  heading: {
-    font: {},
-    level: {
-      "1": {
-        font: {},
-        small: {
-          size: "34px",
-          height: "40px",
-          maxWidth: "816px",
-        },
-        medium: {
-          size: "50px",
-          height: "56px",
-          maxWidth: "1200px",
-        },
-        large: {
-          size: "82px",
-          height: "88px",
-          maxWidth: "1968px",
-        },
-        xlarge: {
-          size: "114px",
-          height: "120px",
-          maxWidth: "2736px",
-        },
-      },
-      "2": {
-        font: {},
-        small: {
-          size: "26px",
-          height: "32px",
-          maxWidth: "624px",
-        },
-        medium: {
-          size: "34px",
-          height: "40px",
-          maxWidth: "816px",
-        },
-        large: {
-          size: "50px",
-          height: "56px",
-          maxWidth: "1200px",
-        },
-        xlarge: {
-          size: "66px",
-          height: "72px",
-          maxWidth: "1584px",
-        },
-      },
-      "3": {
-        font: {},
-        small: {
-          size: "22px",
-          height: "28px",
-          maxWidth: "528px",
-        },
-        medium: {
-          size: "26px",
-          height: "32px",
-          maxWidth: "624px",
-        },
-        large: {
-          size: "34px",
-          height: "40px",
-          maxWidth: "816px",
-        },
-        xlarge: {
-          size: "42px",
-          height: "48px",
-          maxWidth: "1008px",
-        },
-      },
-      "4": {
-        font: {},
-        small: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px",
-        },
-        medium: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px",
-        },
-        large: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px",
-        },
-        xlarge: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px",
-        },
-      },
-      "5": {
-        font: {},
-        small: {
-          size: "16px",
-          height: "22px",
-          maxWidth: "384px",
-        },
-        medium: {
-          size: "16px",
-          height: "22px",
-          maxWidth: "384px",
-        },
-        large: {
-          size: "16px",
-          height: "22px",
-          maxWidth: "384px",
-        },
-        xlarge: {
-          size: "16px",
-          height: "22px",
-          maxWidth: "384px",
-        },
-      },
-      "6": {
-        font: {},
-        small: {
-          size: "14px",
-          height: "20px",
-          maxWidth: "336px",
-        },
-        medium: {
-          size: "14px",
-          height: "20px",
-          maxWidth: "336px",
-        },
-        large: {
-          size: "14px",
-          height: "20px",
-          maxWidth: "336px",
-        },
-        xlarge: {
-          size: "14px",
-          height: "20px",
-          maxWidth: "336px",
-        },
-      },
-    },
-    responsiveBreakpoint: "small",
-    weight: 600,
-  },
-  layer: {
-    background: "rgba(255,255,255, 0.97);",
-    border: {
-      radius: "4px",
-    },
-    container: {
-      zIndex: "15",
-    },
-    overlay: {
-      background: "rgba(0, 0, 0, 0.5)",
-    },
-    responsiveBreakpoint: "small",
-    zIndex: "10",
-  },
-  menu: {
-    icons: {},
-  },
-  meter: {
-    color: "accent-1",
-  },
-  paragraph: {
-    small: {
-      size: "14px",
-      height: "20px",
-      maxWidth: "336px",
-    },
-    medium: {
-      size: "18px",
-      height: "24px",
-      maxWidth: "432px",
-    },
-    large: {
-      size: "22px",
-      height: "28px",
-      maxWidth: "528px",
-    },
-    xlarge: {
-      size: "26px",
-      height: "32px",
-      maxWidth: "624px",
-    },
-    xxlarge: {
-      size: "34px",
-      height: "40px",
-      maxWidth: "816px",
-    },
-  },
-  radioButton: {
-    border: {
-      color: {
-        dark: "rgba(255, 255, 255, 0.5)",
-        light: "rgba(0, 0, 0, 0.15)",
-      },
-      width: "2px",
-    },
-    check: {
-      radius: "100%",
-    },
-    hover: {
-      border: {
-        color: {
-          dark: "white",
-          light: "black",
-        },
-      },
-    },
-    icon: {},
-    icons: {},
-    gap: "small",
-    size: "24px",
-  },
-  rangeInput: {
-    track: {
-      height: "4px",
-      color: [null, ";"],
-    },
-    thumb: {},
-  },
-  rangeSelector: {
-    background: {
-      invert: {
-        color: "light-4",
-      },
-    },
-  },
-  select: {
-    container: {},
-    control: {},
-    icons: {},
-    options: {
-      box: {
-        align: "start",
-        pad: "small",
-      },
-      text: {
-        margin: "none",
-      },
-    },
-    step: 20,
-  },
-  tab: {
-    active: {
-      color: "text",
-    },
-    border: {
-      side: "bottom",
-      size: "small",
-      color: {
-        dark: "accent-1",
-        light: "brand",
-      },
-      active: {
-        color: {
-          dark: "white",
-          light: "black",
-        },
-      },
-      hover: {
-        color: {
-          dark: "white",
-          light: "black",
-        },
-      },
-    },
-    color: "control",
-    hover: {
-      color: {
-        dark: "white",
-        light: "black",
-      },
-    },
-    margin: {
-      vertical: "xxsmall",
-      horizontal: "small",
-    },
-    pad: {
-      bottom: "xsmall",
-    },
-  },
-  tabs: {
-    header: {},
-    panel: {},
-  },
-  table: {
-    header: {
-      align: "start",
-      pad: {
-        horizontal: "small",
-        vertical: "xsmall",
-      },
-      border: "bottom",
-      verticalAlign: "bottom",
-      fill: "vertical",
-    },
-    body: {
-      align: "start",
-      pad: {
-        horizontal: "small",
-        vertical: "xsmall",
-      },
-    },
-    footer: {
-      align: "start",
-      pad: {
-        horizontal: "small",
-        vertical: "xsmall",
-      },
-      border: "top",
-      verticalAlign: "top",
-      fill: "vertical",
-    },
-  },
-  text: {
-    xsmall: {
-      size: "12px",
-      height: "18px",
-      maxWidth: "288px",
-    },
-    small: {
-      size: "14px",
-      height: "20px",
-      maxWidth: "336px",
-    },
-    medium: {
-      size: "18px",
-      height: "24px",
-      maxWidth: "432px",
-    },
-    large: {
-      size: "22px",
-      height: "28px",
-      maxWidth: "528px",
-    },
-    xlarge: {
-      size: "26px",
-      height: "32px",
-      maxWidth: "624px",
-    },
-    xxlarge: {
-      size: "34px",
-      height: "40px",
-      maxWidth: "816px",
-    },
-  },
-  video: {
-    captions: {
-      background: "rgba(0, 0, 0, 0.7)",
-    },
-    icons: {},
-    scrubber: {
-      color: "light-4",
-    },
-  },
-  worldMap: {
-    color: "light-3",
-    continent: {
-      active: "8px",
-      base: "6px",
-    },
-    hover: {
-      color: "light-4",
-    },
-    place: {
-      active: "20px",
-      base: "8px",
-    },
-  },
-};
+  "meter": {},
+  "heading": {
+    "font": {
+      "family": "\"Montserrat\""
+    }
+  }
+}
 
 const PageContainer = ({ children }) => {
   const Router = useRouter();

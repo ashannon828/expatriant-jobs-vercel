@@ -81,13 +81,13 @@ const JobBoard = ({
 
         <Box
           margin={size !== "small" ? "small" : "large"}
-          width={{ max: "500px" }}
+          width={{ max: "600px" }}
           alignSelf="center"
         >
-          <Heading margin="none" alignSelf="center" textAlign="center">
+          <Heading margin="none" alignSelf="center" textAlign="center" level={1}>
             Expat Jobs in Russia
           </Heading>
-          <Heading alignSelf="center" textAlign="center" level={4}>
+          <Heading margin={{top: 'small'}} alignSelf="center" textAlign="center" level={2}>
             Browse sales, marketing, translating, editing and English teaching
             jobs in Russia.
           </Heading>
