@@ -60,13 +60,9 @@ const JobBoard = ({
   };
   const metaDescription =
     "Browse sales, marketing, translating, editing and English teaching jobs in Russia.";
-  const pageTitle = "Expat Jobs in Russia - Expatriant";
+  const pageTitle = "Jobs in Russia - Expatriant";
   return (
     <>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-      </Head>
       <Box
         alignContent="center"
         align="center"
@@ -85,7 +81,7 @@ const JobBoard = ({
           alignSelf="center"
         >
           <Heading margin="none" alignSelf="center" textAlign="center" level={1}>
-            Expat Jobs in Russia
+            Jobs in Russia
           </Heading>
           <Heading margin={{top: 'small'}} alignSelf="center" textAlign="center" level={2}>
             Browse sales, marketing, translating, editing and English teaching

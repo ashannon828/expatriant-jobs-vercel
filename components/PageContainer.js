@@ -7,6 +7,10 @@ import { initGA, logPageView, logEvent } from "../utils/analytics";
 import Navbar from "./Navbar";
 import Head from "next/head";
 
+import {DefaultSeo} from 'next-seo'
+
+import SEO from "../next-seo.config"
+
 import favicon from "../public/img/favicon.ico";
 
 
@@ -122,6 +126,7 @@ const PageContainer = ({ children }) => {
       <ResponsiveContext.Consumer>
         {(size) => (
           <>
+            <DefaultSeo {...SEO} />
             <Head>
               <link rel="icon" type="image/png" sizes="32x32" href={favicon} />
               <link rel="icon" type="image/png" sizes="16x16" href={favicon} />
