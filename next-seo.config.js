@@ -6,6 +6,14 @@ export default {
     locale: 'en_IE',
     url: 'https://jobs.expatriant.com/',
     site_name: 'Jobs in Russia - Expatriant',
+    images: [
+      {
+        url: 'public/img/expatriant_logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Expatriant Logo',
+      }
+    ]
   },
   twitter: {
     handle: '@The_Expatriant',
