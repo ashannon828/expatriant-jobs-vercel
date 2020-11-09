@@ -3,7 +3,9 @@ import { Anchor, Box, Heading, Text } from "grommet";
 import removeMd from "remove-markdown";
 import Link from "next/link";
 import Router from "next/router";
-import Head from "next/head";
+
+import { JobPostingJsonLd } from 'next-seo';
+
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -71,12 +73,37 @@ const JobPost = ({ job, isBack, logEvent }) => {
   const pageTitle = `${job.company} - ${job.position}`;
   const metaDescription = removeMd(job.markdown_desc).substr(0, 250);
 
+  console.log(job.markdown_desc)
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={metaDescription} />
-      </Head>
+      </Head> */}
+      <JobPostingJsonLd
+      datePosted={job.date}
+      description={job.markdown_desc}
+      hiringOrganization={{
+        name: job.company,
+        sameAs: 'www.company-website-url.dev',
+      }}
+      jobLocation={{
+        streetAddress: '17 street address',
+        addressLocality: 'Paris',
+        addressRegion: 'Ile-de-France',
+        postalCode: '75001',
+        addressCountry: 'France',
+      }}
+      title={job.position}
+      baseSalary={{
+        currency: job.salary.currency,
+        value: job.salary.amount,
+        unitText: 'MONTH',
+      }}
+
+      validThrough={dayjs(job.date).add(30, 'day').format()}
+      applicantLocationRequirements={job.location}
+    />
       <Box margin={{ top: "medium" }} pad={{ left: "small", right: "small" }}>
         <Box alignSelf="start" width="fit-content">
           <BackToJobs />
