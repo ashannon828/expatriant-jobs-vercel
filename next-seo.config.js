@@ -1,5 +1,3 @@
-import expatriantLogo from './public/img/expatriant_logo.png'
-
 export default {
   title: "Jobs in Russia - Expatriant",
   description: "Browse sales, marketing, translating, editing and English teaching jobs in Russia.",
@@ -10,7 +8,7 @@ export default {
     site_name: 'Jobs in Russia - Expatriant',
     images: [
       {
-        url: expatriantLogo,
+        url: 'https://jobs.expatriant.com/_next/static/images/expatriant_logo-9387bb3c47625330455e2069ccb5df1e.png',
         width: 600,
         height: 600,
         alt: 'Expatriant Logo',
@@ -19,7 +17,7 @@ export default {
   },
   twitter: {
     handle: '@The_Expatriant',
-    site: '@Jobs in Russia - Expatriant',
+    site: '@The_Expatriant',
     cardType: 'summary_large_image',
   },
 };

@@ -4,7 +4,7 @@ import removeMd from "remove-markdown";
 import Link from "next/link";
 import Router from "next/router";
 
-import { JobPostingJsonLd } from 'next-seo';
+import { NextSeo, JobPostingJsonLd } from 'next-seo';
 
 
 import dayjs from "dayjs";
@@ -70,17 +70,20 @@ const JobPost = ({ job, isBack, logEvent }) => {
     );
   };
 
-  const pageTitle = `${job.company} - ${job.position}`;
-  const metaDescription = removeMd(job.markdown_desc).substr(0, 250);
+  const SEO = {
+    title: `${job.company}: ${job.position}`,
+    description: removeMd(job.markdown_desc).substr(0, 250),
+    openGraph: {
+      title: `${job.company}: ${job.position}`,
+    description: removeMd(job.markdown_desc).substr(0, 250)
+    }
+  }
 
   const jobLocationArray = job.location.split(', ')
   const jobStartDate = dayjs(job.date).format('YYYY-MM-DD')
   return (
     <>
-      {/* <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-      </Head> */}
+      <NextSeo {...SEO}/>
       <JobPostingJsonLd
       datePosted={jobStartDate}
       description={job.markdown_desc}

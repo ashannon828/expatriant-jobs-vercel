@@ -14,7 +14,9 @@ import {
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import Head from "next/head";
+
+import { NextSeo } from 'next-seo';
+
 import BeatLoader from "react-spinners/BeatLoader";
 
 import PopupModal from "../components/Modal";
@@ -250,12 +252,19 @@ const SubmitJobForm = ({ size, logEvent }) => {
     "Find qualified Expats in Russia. More than 1000 Expats browse Expatriant Jobs every month.";
   const pageTitle = "Hire Expats in Russia - Expatriant";
 
+  const SEO = {
+    title: pageTitle,
+    description: metaDescription,
+    openGraph: {
+      title: pageTitle,
+    description: metaDescription
+    }
+  }
+
+
   return (
     <>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={metaDescription} />
-      </Head>
+      <NextSeo {...SEO}/>
 
       <Box
         width="xlarge"
