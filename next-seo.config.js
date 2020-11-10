@@ -4,7 +4,7 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: expatriantLogo,
+    url: 'https://jobs.expatriant.com/',
     site_name: 'Jobs in Russia - Expatriant',
     images: [
       {
@@ -17,7 +17,7 @@ export default {
   },
   twitter: {
     handle: '@The_Expatriant',
-    site: '@The_Expatriant',
+    site: '@Jobs in Russia - Expatriant',
     cardType: 'summary_large_image',
   },
 };
