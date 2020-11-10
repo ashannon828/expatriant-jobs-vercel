@@ -10,7 +10,7 @@ export default {
     site_name: 'Jobs in Russia - Expatriant',
     images: [
       {
-        url: 'public/img/expatriant_logo.png',
+        url: expatriantLogo,
         width: 600,
         height: 600,
         alt: 'Expatriant Logo',
