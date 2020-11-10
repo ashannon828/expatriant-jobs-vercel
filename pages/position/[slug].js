@@ -73,7 +73,8 @@ const JobPost = ({ job, isBack, logEvent }) => {
   const pageTitle = `${job.company} - ${job.position}`;
   const metaDescription = removeMd(job.markdown_desc).substr(0, 250);
 
-  console.log(job.markdown_desc)
+  const jobLocationArray = job.location.split(', ')
+  const jobStartDate = dayjs(job.date).format('YYYY-MM-DD')
   return (
     <>
       {/* <Head>
@@ -81,18 +82,14 @@ const JobPost = ({ job, isBack, logEvent }) => {
         <meta name="description" content={metaDescription} />
       </Head> */}
       <JobPostingJsonLd
-      datePosted={job.date}
+      datePosted={jobStartDate}
       description={job.markdown_desc}
       hiringOrganization={{
         name: job.company,
-        sameAs: 'www.company-website-url.dev',
       }}
       jobLocation={{
-        streetAddress: '17 street address',
-        addressLocality: 'Paris',
-        addressRegion: 'Ile-de-France',
-        postalCode: '75001',
-        addressCountry: 'France',
+        addressLocality: jobLocationArray[0],
+        addressCountry: jobLocationArray[1],
       }}
       title={job.position}
       baseSalary={{
@@ -101,7 +98,7 @@ const JobPost = ({ job, isBack, logEvent }) => {
         unitText: 'MONTH',
       }}
 
-      validThrough={dayjs(job.date).add(30, 'day').format()}
+      validThrough={dayjs(job.date).add(30, 'day').format('YYYY-MM-DD')}
       applicantLocationRequirements={job.location}
     />
       <Box margin={{ top: "medium" }} pad={{ left: "small", right: "small" }}>
